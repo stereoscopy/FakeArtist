@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Modern Art Impostor - Game Aid</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <script type="text/javascript" src="js/game.js"></script>
+  <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+
+<style>
+#globalNav li{
+  //float: left;
+}
+#playerListDiv {
+  background: #ffe9c1;
+}
+#gameControls {
+  background: #c3f4ff;
+}
+#addPlayerButton {
+  background: #c3f4ff;
+}
+#gameControls #startButton {
+  background: #b26a6d;
+}
+#gameControls #randomTopicButton {
+  background: #594638;
+}
+#gameControls #setTopicButton {
+  background: #bbbc8e;
+}
+</style>
+
+</head>
+<body>
+  <div id='globalNav'><ul>
+    <li id='navToSetPlayers'>[Set Players]</li>
+    <li id='navToDistributeTopic'>[Distribute Topic]</li>
+    <li id='navToEndGame'>[End Game]</li>
+  </ul></div>
+
+  <div id='screenSetPlayers'>
+    <div id='playerListDiv'>
+      <ol>
+        <li><input type='text' value="Alice"/><span class='delete'>(delete)</span></li>
+        <li><input type='text' value="Ben"/><span class='delete'>(delete)</span></li>
+        <li><input type='text' value="Charlie"/><span class='delete'>(delete)</span></li>
+      </ol>
+      <div id='playerListControls'>
+        <input id='addPlayerButton' type='button' value="Add player"/>
+      </div>
+      <div id='gameControls'>
+        <input id='randomTopicButton' type='button' value="Random Topic"/>
+        <input id='setTopicButton' type='button' value="Set Topic"/>
+        <input id='startButton' type='button' value="Start"/>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
