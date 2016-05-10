@@ -2,7 +2,11 @@
 
 //TODO: Display that a game-master has seen the topic for this round, 
 //      if it's been disclosed.
+
+//TODO: when adding or deleting players, ensure that current topicInfo and
+// gInfos are all wiped.  A deleted player could have been the impostor...
 var currentTopicInfo;
+var gInfos;
 
 var topicsInfoList = [
   {category: "Activity", topic: "Fishing", difficulty: 1},
@@ -69,6 +73,8 @@ $(document).ready(function(){
       category: $('#topicInputDialog #categoryInput')[0].value
     };
     currentTopicInfo = info;
+    updateCategoryDisplay();
+
     console.log(info);
     $('#topicInputDialog')[0].close();
   });
@@ -78,7 +84,14 @@ $(document).ready(function(){
   ["Alice", "Bob", "Charlie", "Dave", "Eric"].forEach(function(n) {
     addPlayer({ name: n } );    
   });
+  $('#endAndRevealButton').bind('click', revealImpostor);
+  $('#exitRevealDialogButton').bind('click', function() {
+    $('#revealDialog')[0].close(); });
 });
+
+function updateCategoryDisplay(){
+  $('#categoryDisplay')[0].innerHTML = currentTopicInfo.category;
+}
 
 function toggleMenu() {
   $('#header ul').toggleClass('hide');
@@ -140,6 +153,7 @@ function two(thing){
 function setRandomTopic(){
   //TODO: don't pick a topic we've played already in this session.
   currentTopicInfo = pick(topicsInfoList);
+  updateCategoryDisplay();  
 }
 
 function buildScreen2(){
@@ -158,39 +172,49 @@ function buildScreen2(){
   $('#playerListForShowTopic li').remove();
   
   var numPlayers = playerLIs.size();
-  var infos = [];
+  gInfos = [];
   playerLIs.each(function(n, obj) {
     var playerName = $(obj).children()[0].value;
-    infos.push({category: category, topic: topic, isImpostor: false, playerName: playerName});
+    gInfos.push({category: category, topic: topic, isImpostor: false, playerName: playerName});
   });
-  shuffle(infos);
-  infos[0].topic = "???";
-  infos[0].isImpostor = true;
-  shuffle(infos);
+  shuffle(gInfos);
+  gInfos[0].topic = "???";
+  gInfos[0].isImpostor = true;
+  shuffle(gInfos);
   
   playerLIs.each(function(n, obj) {
-    var i = randInt(10);
-    var playerName = $(obj).children()[0].value;
-    var info = infos[n];
-    var showFn = function(obj) {
-      showForPlayer(obj, info)
-    }
-    var labelText = playerName + ": " + info.topic + ", category: "+ info.category;
-    $("<li><input type='button' value='"+labelText+"' onclick='showFn(this);'/></li>").appendTo('#playerListForShowTopic');
+    var info = gInfos[n];    
+    var labelText = info.playerName + ": " + info.topic + ", category: "+ info.category;
+    var inp = $("<input type='button' value='"+labelText+"'/>");
+    var li = $("<li>");
+    inp.appendTo(li);
+    inp.bind('click', function() { 
+      showForPlayer(inp[0], info)
+    });
+    li.appendTo('#playerListForShowTopic');
   });
 }
+function revealImpostor(){
+  $('#revealDialog')[0].show();
+  var impostorInfo = gInfos.find(function(info) {
+    return info.isImpostor;
+  });
+  $('#revealDialog .impostorName')[0].innerHTML = impostorInfo.playerName + " was the impostor.";
+  $('#revealDialog .topic')[0].innerHTML = currentTopicInfo.topic;
 
+}
 function showForPlayer(obj, info){
   //TODO: Don't show topic for the impostor, show only the category.
   //TODO: Ensure dialog is cleared before and after being displayed, 
   //      so that no lazy rendering gives info away where it should not.
   if (info.isImpostor) {
-    $('#showRoleDialog .topicDisplay').hide();
-    $('#showRoleDialog .impostorDisplay')[0].innerHTML = "You are the impostor!";
+    $('#showRoleDialog .topicDisplay')[0].innerHTML = "You're the impostor!";
+    $('#showRoleDialog .topicDisplayLabel').hide();
   } else {
     $('#showRoleDialog .topicDisplay')[0].innerHTML = info.topic;
-    $('#showRoleDialog .topicDisplay').show();
+    $('#showRoleDialog .topicDisplayLabel').show();
   }
+  $('#showRoleDialog .nameDisplay')[0].innerHTML = info.playerName;
   $('#showRoleDialog .categoryDisplay')[0].innerHTML = info.category;
   $('#showRoleDialog')[0].show();
 

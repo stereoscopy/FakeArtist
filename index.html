@@ -56,6 +56,7 @@
       <div id='gameControls'>
         <input id='randomTopicButton' type='button' value="Random Topic"/>
         <input id='setTopicButton' type='button' value="Set Topic"/>
+        <label>Category: </label><span id="categoryDisplay">no category chosen...</span>
         <input id='distributeTopicButton' type='button' value="Next"/>
       </div>
     </div>
@@ -64,19 +65,30 @@
 <div id='screenDistributeTopic'>
   <div>
     <ul id='playerListForShowTopic'></ul>
-      <input id='startButton' type='button' value="Start"/>
-    </div>
+    <input id='startButton' type='button' value="Start"/>
+    <input id='endAndRevealButton' type='button' value="End (Reveal All!)"/>
   </div>
 </div>
 
 <dialog id='showRoleDialog'>
-  <h3>Here's what you have to draw:</h3>
-  <label>Topic: </label><span class='topicDisplay'></span>
+  <label>Hello, </label><span class='nameDisplay'></span>.
+  <br/>
+  <label class='topicDisplayLabel'>Topic: </label><span class='topicDisplay'></span>
   <br/>
   (<label>Category: </label><span class='categoryDisplay'></span>)
   <br/>
+  <span class='impostorDisplay'></span>
   <button id='exit'>Ok! Hide this!</button>
 </dialog>
+
+
+<dialog id='revealDialog'>
+  <label>Impostor: <span class='impostorName'></span></label>
+  <label>Topic: <span class='topic'></span></label>
+  <h3></h3>
+  <button id='exitRevealDialogButton'>OK</button>
+</dialog>
+
 
 <dialog id='topicInputDialog'>
   <h3>Please enter topic and a category</h3>
