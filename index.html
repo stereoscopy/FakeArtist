@@ -5,10 +5,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Modern Art Impostor - Game Aid</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <script type="text/javascript" src="js/game.js"></script>
   <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
-
+  <script type="text/javascript" src="js/game.js"></script>
+  
 <style>
 #globalNav li{
   //float: left;
@@ -22,7 +21,7 @@
 #addPlayerButton {
   background: #c3f4ff;
 }
-#gameControls #startButton {
+#gameControls #distributeTopicButton {
   background: #b26a6d;
 }
 #gameControls #randomTopicButton {
@@ -43,10 +42,7 @@
 
   <div id='screenSetPlayers'>
     <div id='playerListDiv'>
-      <ol>
-        <li><input type='text' value="Alice"/><span class='delete'>(delete)</span></li>
-        <li><input type='text' value="Ben"/><span class='delete'>(delete)</span></li>
-        <li><input type='text' value="Charlie"/><span class='delete'>(delete)</span></li>
+      <ol id='playerList'>
       </ol>
       <div id='playerListControls'>
         <input id='addPlayerButton' type='button' value="Add player"/>
@@ -54,9 +50,17 @@
       <div id='gameControls'>
         <input id='randomTopicButton' type='button' value="Random Topic"/>
         <input id='setTopicButton' type='button' value="Set Topic"/>
-        <input id='startButton' type='button' value="Start"/>
+        <input id='distributeTopicButton' type='button' value="Next"/>
       </div>
     </div>
   </div>
+
+<div id='screenDistributeTopic'>
+  <div>
+    <ol id='playerListForShowTopic'></ol>
+      <input id='startButton' type='button' value="Start"/>
+    </div>
+  </div>
+</div>
 </body>
 </html>
