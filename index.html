@@ -30,6 +30,12 @@
 #gameControls #setTopicButton {
   background: #bbbc8e;
 }
+#playerListForShowTopic li input {
+  width: 60%;
+}
+.topicDisplay {
+  font-weight: bolder;
+}
 </style>
 
 </head>
@@ -57,10 +63,31 @@
 
 <div id='screenDistributeTopic'>
   <div>
-    <ol id='playerListForShowTopic'></ol>
+    <ul id='playerListForShowTopic'></ul>
       <input id='startButton' type='button' value="Start"/>
     </div>
   </div>
 </div>
+
+<dialog id='showRoleDialog'>
+  <h3>Here's what you have to draw:</h3>
+  <label>Topic: </label><span class='topicDisplay'></span>
+  <br/>
+  (<label>Category: </label><span class='categoryDisplay'></span>)
+  <br/>
+  <button id='exit'>Ok! Hide this!</button>
+</dialog>
+
+<dialog id='topicInputDialog'>
+  <h3>Please enter topic and a category</h3>
+  <label>Topic: </label>
+  <input id='topicInput' type='text' placeholder='Topic to guess'/>
+  <br/>
+  <label>Category: </label>
+  <input id='categoryInput' type='text' placeholder='category (a clue)'/>
+  <br/>
+  <button id='saveAndExitTopicInputDialogButton'>Save</button>
+  <button id='exitTopicInputDialogButton'>Cancel</button>
+</dialog>
 </body>
 </html>
