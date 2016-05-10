@@ -9,6 +9,7 @@
   <script type="text/javascript" src="js/game.js"></script>
   
 <style>
+//palette: #ffe9c1 #594638 #c3f4ff #b26a6d #bbbc8e
 #globalNav li{
   //float: left;
 }
@@ -18,23 +19,24 @@
 #gameControls {
   background: #c3f4ff;
 }
-#addPlayerButton {
-  background: #c3f4ff;
-}
-#gameControls #distributeTopicButton {
-  background: #b26a6d;
-}
-#gameControls #randomTopicButton {
-  background: #594638;
-}
-#gameControls #setTopicButton {
-  background: #bbbc8e;
+input { 
+//  background: #bbbc8e;
 }
 #playerListForShowTopic li input {
   width: 60%;
 }
 .topicDisplay {
   font-weight: bolder;
+}
+dialog {
+  height: 80%;
+  width: 80%;
+  position: absolute;
+  top: 7px;
+  left: 6px;
+}
+.impostorName {
+  font-weight: bold;
 }
 </style>
 
@@ -46,7 +48,7 @@
     <li id='navToEndGame'>[End Game]</li>
   </ul></div>
 
-  <div id='screenSetPlayers'>
+  <div id='screenSetPlayers' class='screen'>
     <div id='playerListDiv'>
       <ol id='playerList'>
       </ol>
@@ -57,17 +59,22 @@
         <input id='randomTopicButton' type='button' value="Random Topic"/>
         <input id='setTopicButton' type='button' value="Set Topic"/>
         <label>Category: </label><span id="categoryDisplay">no category chosen...</span>
-        <input id='distributeTopicButton' type='button' value="Next"/>
+        <input id='distributeTopicButton' type='button' value="Next" />
       </div>
     </div>
   </div>
 
-<div id='screenDistributeTopic'>
+<div id='screenDistributeTopic' class='screen'>
   <div>
+    <input id='editGameButton' type='button' value="Edit Game..."/>
     <ul id='playerListForShowTopic'></ul>
     <input id='startButton' type='button' value="Start"/>
-    <input id='endAndRevealButton' type='button' value="End (Reveal All!)"/>
   </div>
+</div>
+
+<div id='screenGameInProgress' class='screen'>
+  <ul id='playerListForGameInProgress'></ul>
+  <input id='endAndRevealButton' type='button' value="End (Reveal All!)"/>
 </div>
 
 <dialog id='showRoleDialog'>
@@ -83,7 +90,7 @@
 
 
 <dialog id='revealDialog'>
-  <label>Impostor: <span class='impostorName'></span></label>
+  <label>Impostor: </label><span class='impostorName'></span> was the impostor!<br/>
   <label>Topic: <span class='topic'></span></label>
   <h3></h3>
   <button id='exitRevealDialogButton'>OK</button>

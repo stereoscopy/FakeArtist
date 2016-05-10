@@ -1,21 +1,28 @@
 "use strict";
 
 //TODO: Display that a game-master has seen the topic for this round, 
-//      if it's been disclosed.
+//      if it's been peeked or manually set.
 
 //TODO: when adding or deleting players, ensure that current topicInfo and
 // gInfos are all wiped.  A deleted player could have been the impostor...
+
+//TODO: leave the player names (buttons) in original order.
+
 var currentTopicInfo;
 var gInfos;
 
 var topicsInfoList = [
   {category: "Activity", topic: "Fishing", difficulty: 1},
-  {category: "Activity", topic: "Ballet Dancing", difficulty: 1},  
-  
+  {category: "Activity", topic: "Sailing", difficulty: 1},
+  {category: "Activity", topic: "Ballet Dancing", difficulty: 2},  
+  {category: "Activity", topic: "Wine Tasting", difficulty: 2},  
   {category: "Animal", topic: "Dog", difficulty: 1},
   {category: "Animal", topic: "Cat", difficulty: 1},
   {category: "Animal", topic: "Lion", difficulty: 1},
   {category: "Animal", topic: "Giraffe", difficulty: 1},
+  {category: "Animal", topic: "Octopus", difficulty: 1},
+  {category: "Animal", topic: "Rhino", difficulty: 1},
+  {category: "Animal", topic: "Elephant", difficulty: 1},
   {category: "Famous Landmark", topic: "Eiffel Tower", difficulty: 1},
   {category: "Famous Landmark", topic: "Big Ben", difficulty: 1},
   {category: "Famous Landmark", topic: "Pyramids", difficulty: 1},
@@ -36,6 +43,8 @@ var topicsInfoList = [
   {category: "Science-Fiction", topic: "Teleporter", difficulty: 1},
   {category: "Sport", topic: "Rugby", difficulty: 1},    
   {category: "Transportation", topic: "Dog Sled", difficulty: 2},
+  {category: "Transportation", topic: "Wind Surfer", difficulty: 2},
+  {category: "Vehicle", topic: "Submarine", difficulty: 1},
   {category: "Vehicle", topic: "Tug Boat", difficulty: 1},
   {category: "Vehicle", topic: "Breakdown recovery truck", difficulty: 2},
   {category: "Vehicle", topic: "Tractor", difficulty: 1},
@@ -58,6 +67,8 @@ $(document).ready(function(){
   });
 
   $('#setTopicButton').bind('click', function() { 
+    $('#topicInputDialog #topicInput')[0].value = "";
+    $('#topicInputDialog #categoryInput')[0].value = "";
     $('#topicInputDialog')[0].show();
   });
   $('#randomTopicButton').bind('click', function() { 
@@ -72,23 +83,44 @@ $(document).ready(function(){
       topic: $('#topicInputDialog #topicInput')[0].value, 
       category: $('#topicInputDialog #categoryInput')[0].value
     };
-    currentTopicInfo = info;
-    updateCategoryDisplay();
-
-    console.log(info);
+    setTopicInfo(info);
+    //TODO: validate topic and category are present
     $('#topicInputDialog')[0].close();
   });
 
 
+  $('#editGameButton').bind('click', editGame);
   $('#distributeTopicButton').bind('click', buildScreen2);
-  ["Alice", "Bob", "Charlie", "Dave", "Eric"].forEach(function(n) {
-    addPlayer({ name: n } );    
-  });
   $('#endAndRevealButton').bind('click', revealImpostor);
   $('#exitRevealDialogButton').bind('click', function() {
     $('#revealDialog')[0].close(); });
+  $('#startButton').bind('click', buildScreen3);
+  buildScreen1();
 });
 
+function buildScreen1(){
+  changeScreenTo('#screenSetPlayers');
+  ["Alice", "Bob", "Charlie", "Dave", "Eric"].forEach(function(n) {
+    addPlayer({ name: n } );    
+  });
+  $('#distributeTopicButton').hide();
+}
+
+function buildScreen3(){
+  changeScreenTo('#screenGameInProgress');
+}
+function editGame(){
+  changeScreenTo('#screenSetPlayers');
+}
+function setTopicInfo(info){
+    currentTopicInfo = info;
+    updateCategoryDisplay();
+    if(currentTopicInfo.topic && currentTopicInfo.category){
+      $('#distributeTopicButton').show();
+    } else {
+      $('#distributeTopicButton').hide();
+    }
+}
 function updateCategoryDisplay(){
   $('#categoryDisplay')[0].innerHTML = currentTopicInfo.category;
 }
@@ -152,8 +184,14 @@ function two(thing){
 
 function setRandomTopic(){
   //TODO: don't pick a topic we've played already in this session.
-  currentTopicInfo = pick(topicsInfoList);
-  updateCategoryDisplay();  
+  var randomPick = pick(topicsInfoList);
+  setTopicInfo(randomPick);  
+}
+
+function changeScreenTo(screenId){
+
+  $('.screen').hide();
+  $(screenId).show();
 }
 
 function buildScreen2(){
@@ -163,13 +201,14 @@ function buildScreen2(){
   }
   console.log('Building screen 2');
   //TODO: disable add/remove players controls.
-
+  changeScreenTo('#screenDistributeTopic');
   var topic = currentTopicInfo.topic;
   var category = currentTopicInfo.category;
 
   var playerLIs = $('#playerList li');
   //remove existing elems of show-list
   $('#playerListForShowTopic li').remove();
+  $('#startButton').hide();
   
   var numPlayers = playerLIs.size();
   gInfos = [];
@@ -199,7 +238,7 @@ function revealImpostor(){
   var impostorInfo = gInfos.find(function(info) {
     return info.isImpostor;
   });
-  $('#revealDialog .impostorName')[0].innerHTML = impostorInfo.playerName + " was the impostor.";
+  $('#revealDialog .impostorName')[0].innerHTML = impostorInfo.playerName;
   $('#revealDialog .topic')[0].innerHTML = currentTopicInfo.topic;
 
 }
@@ -219,4 +258,9 @@ function showForPlayer(obj, info){
   $('#showRoleDialog')[0].show();
 
   $(obj).parent().remove();
+  var remainingPlayerCount = $('#playerListForShowTopic li').size();
+  console.log(remainingPlayerCount);
+  if (remainingPlayerCount < 1){
+    $('#startButton').show();
+  }
 }
