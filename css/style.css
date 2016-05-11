@@ -1,0 +1,26 @@
+.log-in-form {
+  border: 1px solid #cacaca;
+  padding: 1rem;
+  border-radius: 3px; }
+
+#playerListDiv {
+  background: #ffe9c1; }
+
+#gameControls {
+  background: #c3f4ff; }
+
+#playerListForShowTopic li input {
+  width: 60%; }
+
+.topicDisplay {
+  font-weight: bolder; }
+
+dialog {
+  height: 80%;
+  width: 80%;
+  position: absolute;
+  top: 7px;
+  left: 6px; }
+
+.impostorName {
+  font-weight: bold; }

@@ -7,6 +7,9 @@
 // gInfos are all wiped.  A deleted player could have been the impostor...
 
 //TODO: leave the player names (buttons) in original order.
+//TODO: clicking add player should set focus there, and select contents for overwrite
+
+//TODO: put all game state in one object.
 
 var currentTopicInfo;
 var gInfos;
@@ -86,6 +89,7 @@ $(document).ready(function(){
     setTopicInfo(info);
     //TODO: validate topic and category are present
     $('#topicInputDialog')[0].close();
+    FastClick.attach(document.body);
   });
 
 
@@ -93,36 +97,31 @@ $(document).ready(function(){
   $('#distributeTopicButton').bind('click', buildScreen2);
   $('#endAndRevealButton').bind('click', revealImpostor);
   $('#exitRevealDialogButton').bind('click', function() {
-    $('#revealDialog')[0].close(); });
+    $('#revealDialog')[0].close();
+    buildScreen1();
+  });
   $('#startButton').bind('click', buildScreen3);
   buildScreen1();
 });
 
-function buildScreen1(){
-  changeScreenTo('#screenSetPlayers');
-  ["Alice", "Bob", "Charlie", "Dave", "Eric"].forEach(function(n) {
-    addPlayer({ name: n } );    
-  });
-  $('#distributeTopicButton').hide();
-}
 
-function buildScreen3(){
-  changeScreenTo('#screenGameInProgress');
-}
 function editGame(){
   changeScreenTo('#screenSetPlayers');
 }
 function setTopicInfo(info){
     currentTopicInfo = info;
     updateCategoryDisplay();
-    if(currentTopicInfo.topic && currentTopicInfo.category){
+    if(numPlayers() > 2 && currentTopicInfo.topic && currentTopicInfo.category){
       $('#distributeTopicButton').show();
     } else {
       $('#distributeTopicButton').hide();
     }
 }
 function updateCategoryDisplay(){
-  $('#categoryDisplay')[0].innerHTML = currentTopicInfo.category;
+  console.log('updating category display');
+
+  $('#categoryDisplay')[0].innerHTML = currentTopicInfo ? 
+    currentTopicInfo.category : "no category set";
 }
 
 function toggleMenu() {
@@ -149,10 +148,11 @@ function deletePlayer(foo){
   console.log('deleting player' + foo);
   $(foo).parent().remove();
 }
-
+function numPlayers(){
+    return $('#playerList li').size();
+}
 function addPlayer(opts){
-  var numPlayers = $('#playerList li').size();
-  var n = opts.name || ("Player" + (numPlayers + 1));
+  var n = opts.name || ("Player" + (numPlayers() + 1));
   $("<li><input type='text' class='playerNameInput' value='"+n+"'/><span class='deletePlayer' onclick='deletePlayer(this);'>(delete)</span></li>").appendTo('#playerList');
 }
 
@@ -194,6 +194,18 @@ function changeScreenTo(screenId){
   $(screenId).show();
 }
 
+function buildScreen1(){
+  changeScreenTo('#screenSetPlayers');
+  if(numPlayers() < 1){
+    ["Alice", "Bob", "Charlie", "Dave"].forEach(function(n) {
+      addPlayer({ name: n } );    
+    });    
+  }
+  $('#distributeTopicButton').hide();
+  gInfos = [];
+  currentTopicInfo = null;
+  updateCategoryDisplay();
+}
 function buildScreen2(){
   if (!currentTopicInfo) {
     console.log("Can't proceed - no topic set.");
@@ -223,7 +235,7 @@ function buildScreen2(){
   
   playerLIs.each(function(n, obj) {
     var info = gInfos[n];    
-    var labelText = info.playerName + ": " + info.topic + ", category: "+ info.category;
+    var labelText = info.playerName;
     var inp = $("<input type='button' value='"+labelText+"'/>");
     var li = $("<li>");
     inp.appendTo(li);
@@ -233,6 +245,11 @@ function buildScreen2(){
     li.appendTo('#playerListForShowTopic');
   });
 }
+
+function buildScreen3(){
+  changeScreenTo('#screenGameInProgress');
+}
+
 function revealImpostor(){
   $('#revealDialog')[0].show();
   var impostorInfo = gInfos.find(function(info) {
