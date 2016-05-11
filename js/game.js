@@ -156,23 +156,11 @@ function addPlayer(opts){
   $("<li><input type='text' class='playerNameInput' value='"+n+"'/><span class='deletePlayer' onclick='deletePlayer(this);'>(delete)</span></li>").appendTo('#playerList');
 }
 
-
-
 function pick(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+  return _.sample(arr);
 }
 
-function shuffle(deck){
-  // For each element in the array, swap with a randomly chosen lower element
-  var len = deck.length;
-  for(var i = len-1; i > 0; i--) {
-    var r = Math.floor(Math.random()*(i+1)), temp; // Random number
-    temp = deck[i];
-    deck[i] = deck[r];
-    deck[r] = temp; // Swap
-  }
-  return deck;
-}
+
 
 function randInt(n){
   return Math.floor(Math.random() * n);
@@ -228,10 +216,10 @@ function buildScreen2(){
     var playerName = $(obj).children()[0].value;
     gInfos.push({category: category, topic: topic, isImpostor: false, playerName: playerName});
   });
-  shuffle(gInfos);
+  gInfos = _.shuffle(gInfos);
   gInfos[0].topic = "???";
   gInfos[0].isImpostor = true;
-  shuffle(gInfos);
+  gInfos = _.shuffle(gInfos);
   
   playerLIs.each(function(n, obj) {
     var info = gInfos[n];    
