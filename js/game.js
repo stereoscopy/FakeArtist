@@ -6,7 +6,6 @@
 //TODO: when adding or deleting players, ensure that current topicInfo and
 // gInfos are all wiped.  A deleted player could have been the impostor...
 
-//TODO: leave the player names (buttons) in original order.
 //TODO: clicking add player should set focus there, and select contents for overwrite
 
 //TODO: put all game state in one object.
@@ -32,7 +31,6 @@ var topicsInfoList = [
   {category: "Famous Landmark", topic: "Niagara Falls", difficulty: 1},
   {category: "Food/Drink", topic: "Ice Cube", difficulty: 2},
   {category: "Food/Drink", topic: "Banana", difficulty: 2},
-  {category: "Food/Drink", topic: "", difficulty: 2},
   {category: "Profession", topic: "Wrestler", difficulty: 2},
   {category: "Profession", topic: "Policeman", difficulty: 2},
   {category: "Profession", topic: "Assassin", difficulty: 2},
@@ -89,7 +87,6 @@ $(document).ready(function(){
     setTopicInfo(info);
     //TODO: validate topic and category are present
     $('#topicInputDialog')[0].close();
-    FastClick.attach(document.body);
   });
 
 
@@ -101,6 +98,9 @@ $(document).ready(function(){
     buildScreen1();
   });
   $('#startButton').bind('click', buildScreen3);
+
+  FastClick.attach(document.body);
+
   buildScreen1();
 });
 
@@ -187,7 +187,7 @@ function buildScreen1(){
   if(numPlayers() < 1){
     ["Alice", "Bob", "Charlie", "Dave"].forEach(function(n) {
       addPlayer({ name: n } );    
-    });    
+    });
   }
   $('#distributeTopicButton').hide();
   gInfos = [];
@@ -216,10 +216,10 @@ function buildScreen2(){
     var playerName = $(obj).children()[0].value;
     gInfos.push({category: category, topic: topic, isImpostor: false, playerName: playerName});
   });
-  gInfos = _.shuffle(gInfos);
-  gInfos[0].topic = "???";
-  gInfos[0].isImpostor = true;
-  gInfos = _.shuffle(gInfos);
+  
+  var impostorInfo = _.sample(gInfos);
+  impostorInfo.topic = "???";
+  impostorInfo.isImpostor = true;
   
   playerLIs.each(function(n, obj) {
     var info = gInfos[n];    

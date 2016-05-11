@@ -14,13 +14,9 @@
 
 </head>
 <body>
-  <div id='globalNav'><ul>
-    <li id='navToSetPlayers'>[Set Players]</li>
-    <li id='navToDistributeTopic'>[Distribute Topic]</li>
-    <li id='navToEndGame'>[End Game]</li>
-  </ul></div>
-
+  <h1>Impostor - Game Aid</h1>
   <div id='screenSetPlayers' class='screen'>
+    <h2>Set Players and Topic</h2>
     <div id='playerListDiv'>
       <ol id='playerList'>
       </ol>
@@ -37,6 +33,7 @@
   </div>
 
 <div id='screenDistributeTopic' class='screen'>
+  <h2>Show Topic to Players</h2>
   <div>
     <input id='editGameButton' type='button' value="Edit Game..."/>
     <ul id='playerListForShowTopic'></ul>
@@ -45,6 +42,7 @@
 </div>
 
 <div id='screenGameInProgress' class='screen'>
+  <h2>Game Has Started</h2>
   <ul id='playerListForGameInProgress'></ul>
   <input id='endAndRevealButton' type='button' value="End (Reveal All!)"/>
 </div>
