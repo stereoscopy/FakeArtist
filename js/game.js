@@ -10,6 +10,7 @@
 
 //TODO: put all game state in one object.
 
+//TODO: have dialogs be modal.  don't allow editing of other stuff while a dialog is forward.
 var currentTopicInfo;
 var gInfos;
 
@@ -99,8 +100,6 @@ $(document).ready(function(){
   });
   $('#startButton').bind('click', buildScreen3);
 
-  FastClick.attach(document.body);
-
   buildScreen1();
 });
 
@@ -153,7 +152,7 @@ function numPlayers(){
 }
 function addPlayer(opts){
   var n = opts.name || ("Player" + (numPlayers() + 1));
-  $("<li><input type='text' class='playerNameInput' value='"+n+"'/><span class='deletePlayer' onclick='deletePlayer(this);'>(delete)</span></li>").appendTo('#playerList');
+  $("<li><input type='text' class='playerNameInput uppercase' value='"+n+"'/><span class='deletePlayer' onclick='deletePlayer(this);'>(delete)</span></li>").appendTo('#playerList');
 }
 
 function pick(arr) {
@@ -224,7 +223,7 @@ function buildScreen2(){
   playerLIs.each(function(n, obj) {
     var info = gInfos[n];    
     var labelText = info.playerName;
-    var inp = $("<input type='button' value='"+labelText+"'/>");
+    var inp = $("<a class='expand'>"+labelText+"</a>");
     var li = $("<li>");
     inp.appendTo(li);
     inp.bind('click', function() { 

@@ -4,47 +4,71 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Modern Art Impostor - Game Aid</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/foundation.css" />
   <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+  <script type="text/javascript" src="js/foundation.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-  <script type="text/javascript" src="js/game.js"></script>
+    <script type="text/javascript" src="js/game.js"></script>
+
 <style>
+dialog {
+  height: 80%;
+  width: 80%;
+  top: 7px;
+  left: 6px;
+}
+
 </style>
 
 </head>
 <body>
-  <h1>Impostor - Game Aid</h1>
-  <div id='screenSetPlayers' class='screen'>
-    <h2>Set Players and Topic</h2>
-    <div id='playerListDiv'>
+  <div class="row">
+    <div class="large-12 columns"><h1 align='center'>&laquo;Impostor - Game Aid&raquo;</h1></div>
+  </div>
+  <div id='screenSetPlayers' class='screen row'>
+    <div class="large-4 columns"><h3></h3></div>
+    
+    <div id='playerListDiv' class="large-4 columns">
       <ol id='playerList'>
       </ol>
       <div id='playerListControls'>
-        <input id='addPlayerButton' type='button' value="Add player"/>
+        <a id="addPlayerButton" class="button expand">Add player</a>
       </div>
       <div id='gameControls'>
-        <input id='randomTopicButton' type='button' value="Random Topic"/>
-        <input id='setTopicButton' type='button' value="Set Topic"/>
+        <a id="randomTopicButton" class="button expand">Random Topic</a>
+        <a id="setTopicButton" class="button expand">Set Topic</a>
+
         <label>Category: </label><span id="categoryDisplay">no category chosen...</span>
-        <input id='distributeTopicButton' type='button' value="Next" />
+        <a id="distributeTopicButton" class="button expand">Next</a>
+
       </div>
     </div>
+
+    <div class="large-4 columns"><h3></h3></div>
+
   </div>
 
-<div id='screenDistributeTopic' class='screen'>
-  <h2>Show Topic to Players</h2>
-  <div>
-    <input id='editGameButton' type='button' value="Edit Game..."/>
+<div id='screenDistributeTopic' class='screen row'>
+  <div class="large-4 columns"><h3></h3></div>
+  <div class="large-4 columns">
+    <a id="editGameButton" class="button expand">Edit Game...</a>
     <ul id='playerListForShowTopic'></ul>
-    <input id='startButton' type='button' value="Start"/>
+    <a id="startButton" class="button expand">Start</a>
   </div>
+
+  <div class="large-4 columns"><h3></h3></div>
+
 </div>
 
-<div id='screenGameInProgress' class='screen'>
-  <h2>Game Has Started</h2>
-  <ul id='playerListForGameInProgress'></ul>
-  <input id='endAndRevealButton' type='button' value="End (Reveal All!)"/>
+<div id='screenGameInProgress' class='screen row'>
+  <div class="large-4 columns"><h3></h3></div>
+  <div class="large-4 columns">
+
+    <h2>Game Has Started</h2>
+    <ul id='playerListForGameInProgress'></ul>
+    <a id='endAndRevealButton' class='button expand'>End (Reveal All!)</a>
+  </div>
+  <div class="large-4 columns"><h3></h3></div>
 </div>
 
 <dialog id='showRoleDialog'>
@@ -55,7 +79,7 @@
   (<label>Category: </label><span class='categoryDisplay'></span>)
   <br/>
   <span class='impostorDisplay'></span>
-  <button id='exit'>Ok! Hide this!</button>
+  <a id="exit" class="button expand">Ok! Hide this!</a>
 </dialog>
 
 
@@ -63,7 +87,7 @@
   <label>Impostor: </label><span class='impostorName'></span> was the impostor!<br/>
   <label>Topic: <span class='topic'></span></label>
   <h3></h3>
-  <button id='exitRevealDialogButton'>OK</button>
+  <a id="exitRevealDialogButton" class="button expand">OK</a>
 </dialog>
 
 
@@ -75,8 +99,8 @@
   <label>Category: </label>
   <input id='categoryInput' type='text' placeholder='category (a clue)'/>
   <br/>
-  <button id='saveAndExitTopicInputDialogButton'>Save</button>
-  <button id='exitTopicInputDialogButton'>Cancel</button>
+  <a id="saveAndExitTopicInputDialogButton" class="button expand">Save</a>
+  <a id="exitTopicInputDialogButton" class="button expand alert">Cancel</a>
 </dialog>
 </body>
 </html>
