@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Art Impostor - Game Aid</title>
+
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+  <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <script type="text/javascript" src="js/game.js"></script>
+
+
+</head>
+
+<body>
+  <h1>Impostor - Game Aid</h1>
+  <div id='screenSetPlayers' class='screen'>
+    <h2>Set Players and Topic</h2>
+    <div id='playerListDiv'>
+      <ol id='playerList'>
+      </ol>
+      <div id='playerListControls'>
+        <input id='addPlayerButton' type='button' value="Add player"/>
+      </div>
+      <div id='gameControls'>
+        <input id='randomTopicButton' type='button' value="Random Topic"/>
+        <input id='setTopicButton' type='button' value="Set Topic"/>
+        <label>Category: </label><span id="categoryDisplay">no category chosen...</span>
+        <input id='distributeTopicButton' type='button' value="Next" />
+      </div>
+    </div>
+  </div>
+
+<div id='screenDistributeTopic' class='screen'>
+  <h2>Show Topic to Players</h2>
+  <div>
+    <input id='editGameButton' type='button' value="Edit Game..."/>
+    <ul id='playerListForShowTopic'></ul>
+    <input id='startButton' type='button' value="Start"/>
+  </div>
+</div>
+
+<div id='screenGameInProgress' class='screen'>
+  <h2>Game Has Started</h2>
+  <ul id='playerListForGameInProgress'></ul>
+  <input id='endAndRevealButton' type='button' value="End (Reveal All!)"/>
+</div>
+
+<dialog id='showRoleDialog'>
+  <label>Hello, </label><span class='nameDisplay'></span>.
+  <br/>
+  <label class='topicDisplayLabel'>Topic: </label><span class='topicDisplay'></span>
+  <br/>
+  (<label>Category: </label><span class='categoryDisplay'></span>)
+  <br/>
+  <span class='impostorDisplay'></span>
+  <button id='exit'>Ok! Hide this!</button>
+</dialog>
+
+
+<dialog id='revealDialog'>
+  <label>Impostor: </label><span class='impostorName'></span> was the impostor!<br/>
+  <label>Topic: <span class='topic'></span></label>
+  <h3></h3>
+  <button id='exitRevealDialogButton'>OK</button>
+</dialog>
+
+
+<dialog id='topicInputDialog'>
+  <h3>Please enter topic and a category</h3>
+  <label>Topic: </label>
+  <input id='topicInput' type='text' placeholder='Topic to guess'/>
+  <br/>
+  <label>Category: </label>
+  <input id='categoryInput' type='text' placeholder='category (a clue)'/>
+  <br/>
+  <button id='saveAndExitTopicInputDialogButton'>Save</button>
+  <button id='exitTopicInputDialogButton'>Cancel</button>
+</dialog>
+</body>
+</html>
