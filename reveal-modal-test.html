@@ -1,29 +1,30 @@
 <!DOCTYPE html>
-<html class="no js" lang="en">
+<html class="no-js" lang="en">
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css'>
+    </head>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reveal Modal test</title>
+    <body>
+        <a data-reveal-id="locations_modal">Show game locations</a>
+        <div id="locations_modal" data-reveal="data-reveal" class="reveal-modal small text-center">
+            <h2>Hello!  A modal is here showing locations.</h2>
+            <a class="close-reveal-modal">&#215</a>
+        </div>
 
-  <link rel="stylesheet" type="text/css" href="css/foundation.css" />
+        Some other text
 
-  <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-countdown/2.0.1/jquery.plugin.min.js"></script>
-  <script type="text/javascript" src="js/foundation.min.js"></script>
-</head>
-<body>
+        
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
 
-<a href="#" data-reveal-id="myModal">Click Me For A Modal</a>
 
-<div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-  <h2 id="modalTitle">Awesome. I have it.</h2>
-  <p class="lead">Your couch.  It is mine.</p>
-  <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
-  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-</div>
-<script type="text/javascript"> 
-    $(document).foundation();
-</script>
-</body>
+
+        <script>
+            $(document).foundation();
+        </script>
+
+    </body>
 </html>
