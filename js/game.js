@@ -56,46 +56,41 @@ var topicsInfoList = [
   {category: "Vehicle", topic: "Helicopter", difficulty: 1},
 ]
 $(document).ready(function(){
+  $(document).foundation();
+
   //$('#header ul').addClass('hide');
   //$('#header').append('<div class="leftButton" onclick="toggleMenu()">Menu</div>');
   currentTopicInfo = null;
 
   $('#addPlayerButton').bind('click', addPlayer);
-  $('#show').bind('click', function() { 
-    $('#showRoleDialog')[0].show();
-  });
-  $('#exit').bind('click', function() { 
-    $('#showRoleDialog')[0].close();
-  });
 
   $('#setTopicButton').bind('click', function() { 
-    $('#topicInputDialog #topicInput')[0].value = "";
-    $('#topicInputDialog #categoryInput')[0].value = "";
-    $('#topicInputDialog')[0].show();
+    //clear the dialog
+    $('#topicInputModal #topicInput').val("");
+    $('#topicInputModal #categoryInput').val("");
   });
   $('#randomTopicButton').bind('click', function() { 
     setRandomTopic();
   });
 
-  $('#exitTopicInputDialogButton').bind('click', function() { 
-    $('#topicInputDialog')[0].close();
-  });
-  $('#saveAndExitTopicInputDialogButton').bind('click', function() { 
+  $('#saveAndExitTopicInputModalButton').bind('click', function() { 
     var info = {
-      topic: $('#topicInputDialog #topicInput')[0].value, 
-      category: $('#topicInputDialog #categoryInput')[0].value
+      topic: $('#topicInputModal #topicInput').val(), 
+      category: $('#topicInputModal #categoryInput').val()
     };
-    setTopicInfo(info);
-    //TODO: validate topic and category are present
-    $('#topicInputDialog')[0].close();
+    //Prevent close if topic+category are not valid
+    if (!info.topic || info.topic.length < 2 || !info.category || info.category.length < 2){
+      return false;
+    } else {
+      setTopicInfo(info);
+    }
   });
 
 
   $('#editGameButton').bind('click', editGame);
   $('#distributeTopicButton').bind('click', buildScreen2);
   $('#endAndRevealButton').bind('click', revealImpostor);
-  $('#exitRevealDialogButton').bind('click', function() {
-    $('#revealDialog')[0].close();
+  $('#exitRevealModalButton').bind('click', function() {
     buildScreen1();
   });
   $('#startButton').bind('click', buildScreen3);
@@ -119,8 +114,8 @@ function setTopicInfo(info){
 function updateCategoryDisplay(){
   console.log('updating category display');
 
-  $('#categoryDisplay')[0].innerHTML = currentTopicInfo ? 
-    currentTopicInfo.category : "no category set";
+  $('#categoryDisplay').html(currentTopicInfo ? 
+    currentTopicInfo.category : "no category set");
 }
 
 function toggleMenu() {
@@ -211,7 +206,7 @@ function buildScreen2(){
   var numPlayers = playerNameInputs.size();
   gInfos = [];
   playerNameInputs.each(function(n, obj) {
-    var playerName = $(obj)[0].value;
+    var playerName = $(obj).val();
     gInfos.push({category: category, topic: topic, isImpostor: false, playerName: playerName});
   });
   
@@ -222,11 +217,11 @@ function buildScreen2(){
   playerNameInputs.each(function(n, obj) {
     var info = gInfos[n];    
     var labelText = info.playerName;
-    var inp = $("<a class='button hollow expanded'>"+labelText+"</a>");
+    var inp = $("<a class='button hollow expanded' data-open='showRoleModal'>"+labelText+"</a>");
     var li = $("<li>");
     inp.appendTo(li);
-    inp.bind('click', function() { 
-      showForPlayer(inp[0], info)
+    inp.bind('click', function() {
+      showForPlayer(inp[0], info);
     });
     li.appendTo('#playerListForShowTopic');
   });
@@ -237,12 +232,11 @@ function buildScreen3(){
 }
 
 function revealImpostor(){
-  $('#revealDialog')[0].show();
   var impostorInfo = gInfos.find(function(info) {
     return info.isImpostor;
   });
-  $('#revealDialog .impostorName')[0].innerHTML = impostorInfo.playerName;
-  $('#revealDialog .topic')[0].innerHTML = currentTopicInfo.topic;
+  $('#revealModal .impostorName').html(impostorInfo.playerName);
+  $('#revealModal .topic').html(currentTopicInfo.topic);
 
 }
 function showForPlayer(obj, info){
@@ -250,15 +244,14 @@ function showForPlayer(obj, info){
   //TODO: Ensure dialog is cleared before and after being displayed, 
   //      so that no lazy rendering gives info away where it should not.
   if (info.isImpostor) {
-    $('#showRoleDialog .topicDisplay')[0].innerHTML = "You're the impostor!";
-    $('#showRoleDialog .topicDisplayLabel').hide();
+    $('#showRoleModal .topicDisplay').html("You're the impostor!");
+    $('#showRoleModal .topicDisplayLabel').hide();
   } else {
-    $('#showRoleDialog .topicDisplay')[0].innerHTML = info.topic;
-    $('#showRoleDialog .topicDisplayLabel').show();
+    $('#showRoleModal .topicDisplay').html(info.topic);
+    $('#showRoleModal .topicDisplayLabel').show();
   }
-  $('#showRoleDialog .nameDisplay')[0].innerHTML = info.playerName;
-  $('#showRoleDialog .categoryDisplay')[0].innerHTML = info.category;
-  $('#showRoleDialog')[0].show();
+  $('#showRoleModal .nameDisplay').html(info.playerName);
+  $('#showRoleModal .categoryDisplay').html(info.category);
 
   $(obj).parent().remove();
   var remainingPlayerCount = $('#playerListForShowTopic li').size();

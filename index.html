@@ -30,12 +30,12 @@
         <div class='row'>
           <div class='button-group expanded'>
             <a id="randomTopicButton" class="button">Random Topic</a>
-            <a id="setTopicButton" class="button">Set Topic</a>
+            <a id="setTopicButton" class="button" data-open="topicInputModal">Set Topic</a>
           </div>
         </div>
 
         <label>Category: <span id="categoryDisplay">no category chosen...</span></label>
-        <div class="row">
+        <div class="row">          
           <a id="distributeTopicButton" class="button success expanded">Next</a>
         </div>  
 
@@ -63,12 +63,13 @@
 
     <h2>Game Has Started</h2>
     <ul id='playerListForGameInProgress'></ul>
-    <a id='endAndRevealButton' class='button expanded'>End (Reveal All!)</a>
+    <a id='endAndRevealButton' data-open='revealModal' class='button expanded'>End (Reveal All!)</a>
   </div>
   <div class="large-4 columns"><h3></h3></div>
 </div>
 
-<dialog id='showRoleDialog'>
+
+<div id='showRoleModal' class="reveal" data-reveal>
   <span>Hello, </span><span class='nameDisplay'></span>.
   <div class="row">
     <span class='topicDisplayLabel'><strong>Topic: </strong></span> 
@@ -78,19 +79,28 @@
     <span><strong>Category: </strong></span><span class='categoryDisplay'></span>
     <span class='impostorDisplay'></span>
   </div>
-  <a id="exit" class="button expanded">Ok! Hide this!</a>
-</dialog>
+  <button class="button expanded" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">Okay!</span>
+  </button>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button> 
 
+</div>
 
-<dialog id='revealDialog'>
-  <label>Impostor: </label><span class='impostorName'></span> was the impostor!<br/>
-  <label>Topic: <span class='topic'></span></label>
-  <h3></h3>
-  <a id="exitRevealDialogButton" class="button expanded">OK</a>
-</dialog>
+<div id='revealModal' class="reveal" data-reveal>
+<label>Impostor: </label><span class='impostorName'></span> was the impostor!<br/>
+<label>Topic: <span class='topic'></span></label>
+<h3></h3>
+<button id="exitRevealModalButton" class="button expanded" data-close aria-label="Close modal" type="button">
+  <span aria-hidden="true">OK</span>
+</button>
+<button class="close-button" data-close aria-label="Close modal" type="button">
+  <span aria-hidden="true">&times;</span>
+</button> 
+</div>
 
-
-<dialog id='topicInputDialog'>
+<div id='topicInputModal' class="reveal" data-reveal>
   <h3>Please enter topic and a category</h3>
   <label>Topic: 
     <input id='topicInput' type='text' placeholder='Topic to guess'/>
@@ -98,9 +108,15 @@
   <label>Category: 
     <input id='categoryInput' type='text' placeholder='category (a clue)'/>
   </label>
-  <a id="saveAndExitTopicInputDialogButton" class="button success expanded">Save</a>
-  <a id="exitTopicInputDialogButton" class="button expanded alert">Cancel</a>
-</dialog>
+  <a id="saveAndExitTopicInputModalButton" class="button success expanded" data-close>Save</a>
+  <a id="exitTopicInputModalButton" class="button expanded alert" data-close>Cancel</a>  
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+</div>
+
+
 
 </body>
 </html>
