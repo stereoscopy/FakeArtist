@@ -14,7 +14,7 @@
 </head>
 <body>
   <div class="row">
-    <div class="large-12 columns"><h1 align='center'>&laquo;Impostor - Game Aid&raquo;</h1></div>
+    <div class="large-12 columns"><h1 align='center'>Impostor</h1></div>
   </div>
   <div id='screenSetPlayers' class='screen row'>
     <div class="large-4 columns"><h3></h3></div>
@@ -23,14 +23,18 @@
       <ol id='playerList'>
       </ol>
       <div id='playerListControls'>
-        <a id="addPlayerButton" class="button expand">Add player</a>
+        <a id="addPlayerButton" class="button expanded">Add player</a>
       </div>
       <div id='gameControls'>
-        <a id="randomTopicButton" class="button expand">Random Topic</a>
-        <a id="setTopicButton" class="button expand">Set Topic</a>
+        <div class='row'>
+          <div class='button-group expanded'>
+            <a id="randomTopicButton" class="button">Random Topic</a>
+            <a id="setTopicButton" class="button">Set Topic</a>
+          </div>
+        </div>
 
-        <label>Category: </label><span id="categoryDisplay">no category chosen...</span>
-        <a id="distributeTopicButton" class="button expand">Next</a>
+        <label>Category: <span id="categoryDisplay">no category chosen...</span></label>
+        <a id="distributeTopicButton" class="button expanded">Next</a>
 
       </div>
     </div>
@@ -42,9 +46,9 @@
 <div id='screenDistributeTopic' class='screen row'>
   <div class="large-4 columns"><h3></h3></div>
   <div class="large-4 columns">
-    <a id="editGameButton" class="button expand">Edit Game...</a>
+    <a id="editGameButton" class="button expanded">Edit Game...</a>
     <ul id='playerListForShowTopic'></ul>
-    <a id="startButton" class="button expand">Start</a>
+    <a id="startButton" class="button expanded">Start</a>
   </div>
 
   <div class="large-4 columns"><h3></h3></div>
@@ -57,20 +61,18 @@
 
     <h2>Game Has Started</h2>
     <ul id='playerListForGameInProgress'></ul>
-    <a id='endAndRevealButton' class='button expand'>End (Reveal All!)</a>
+    <a id='endAndRevealButton' class='button expanded'>End (Reveal All!)</a>
   </div>
   <div class="large-4 columns"><h3></h3></div>
 </div>
 
 <dialog id='showRoleDialog'>
-  <label>Hello, </label><span class='nameDisplay'></span>.
-  <br/>
-  <label class='topicDisplayLabel'>Topic: </label><span class='topicDisplay'></span>
-  <br/>
-  (<label>Category: </label><span class='categoryDisplay'></span>)
-  <br/>
+  <label>Hello, <span class='nameDisplay'></span></label>.
+  <label class='topicDisplayLabel'>Topic: 
+    <span class='topicDisplay'></span></label>
+  <label>Category: <span class='categoryDisplay'></span></label>
   <span class='impostorDisplay'></span>
-  <a id="exit" class="button expand">Ok! Hide this!</a>
+  <a id="exit" class="button expanded">Ok! Hide this!</a>
 </dialog>
 
 
@@ -78,7 +80,7 @@
   <label>Impostor: </label><span class='impostorName'></span> was the impostor!<br/>
   <label>Topic: <span class='topic'></span></label>
   <h3></h3>
-  <a id="exitRevealDialogButton" class="button expand">OK</a>
+  <a id="exitRevealDialogButton" class="button expanded">OK</a>
 </dialog>
 
 
@@ -87,13 +89,12 @@
   <label>Topic: 
     <input id='topicInput' type='text' placeholder='Topic to guess'/>
   </label>
-  <br/>
   <label>Category: 
     <input id='categoryInput' type='text' placeholder='category (a clue)'/>
   </label>
-  <br/>
-  <a id="saveAndExitTopicInputDialogButton" class="button success expand">Save</a>
-  <a id="exitTopicInputDialogButton" class="button expand alert">Cancel</a>
+  <a id="saveAndExitTopicInputDialogButton" class="button success expanded">Save</a>
+  <a id="exitTopicInputDialogButton" class="button expanded alert">Cancel</a>
 </dialog>
+
 </body>
 </html>
