@@ -223,7 +223,7 @@ function buildScreen2(){
   playerLIs.each(function(n, obj) {
     var info = gInfos[n];    
     var labelText = info.playerName;
-    var inp = $("<a class='expand'>"+labelText+"</a>");
+    var inp = $("<a class='button hollow expanded'>"+labelText+"</a>");
     var li = $("<li>");
     inp.appendTo(li);
     inp.bind('click', function() { 
