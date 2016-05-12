@@ -19,38 +19,17 @@ $form-padding: $global-padding;
 // Setting the form border radius
 $form-radius: $global-radius;
 
-.log-in-form {
-  border: 1px solid $form-border-color;
-  padding: $form-padding;
-  border-radius: $form-radius;
-}
-
-
-#globalNav li{
-  //float: left;
-}
-#playerListDiv {
-  background: $color1;
-}
-#gameControls {
-  background: $color3;
-}
-input { 
-//  background: $color5;
-}
-#playerListForShowTopic li input {
-  width: 60%;
-}
 .topicDisplay {
   font-weight: bolder;
 }
+.impostorName {
+  font-weight: bold;
+}
+
 dialog {
   height: 80%;
   width: 80%;
   position: absolute;
   top: 7px;
   left: 6px;
-}
-.impostorName {
-  font-weight: bold;
 }
