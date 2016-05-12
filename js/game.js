@@ -143,16 +143,15 @@ function assert(message, expr) {
 
 assert.count = 0;
 
-function deletePlayer(foo){
-  console.log('deleting player' + foo);
-  $(foo).parent().remove();
+function deletePlayer(obj){
+  $(obj).parent().parent().parent().remove();
 }
 function numPlayers(){
     return $('#playerList li').size();
 }
 function addPlayer(opts){
   var n = opts.name || ("Player" + (numPlayers() + 1));
-  $("<li><input type='text' class='playerNameInput uppercase' value='"+n+"'/><span class='deletePlayer' onclick='deletePlayer(this);'>(delete)</span></li>").appendTo('#playerList');
+  $("<li><div class='row'><div class='small-10 columns'><input type='text' class='playerNameInput' value='"+n+"'/></div><div class='small-2 columns'><button type='button' class='button deletePlayer alert expanded' onclick='deletePlayer(this);'>del</button></div></div></li>").appendTo('#playerList');
 }
 
 function pick(arr) {
@@ -204,15 +203,15 @@ function buildScreen2(){
   var topic = currentTopicInfo.topic;
   var category = currentTopicInfo.category;
 
-  var playerLIs = $('#playerList li');
+  var playerNameInputs = $('.playerNameInput');
   //remove existing elems of show-list
   $('#playerListForShowTopic li').remove();
   $('#startButton').hide();
   
-  var numPlayers = playerLIs.size();
+  var numPlayers = playerNameInputs.size();
   gInfos = [];
-  playerLIs.each(function(n, obj) {
-    var playerName = $(obj).children()[0].value;
+  playerNameInputs.each(function(n, obj) {
+    var playerName = $(obj)[0].value;
     gInfos.push({category: category, topic: topic, isImpostor: false, playerName: playerName});
   });
   
@@ -220,7 +219,7 @@ function buildScreen2(){
   impostorInfo.topic = "???";
   impostorInfo.isImpostor = true;
   
-  playerLIs.each(function(n, obj) {
+  playerNameInputs.each(function(n, obj) {
     var info = gInfos[n];    
     var labelText = info.playerName;
     var inp = $("<a class='button hollow expanded'>"+labelText+"</a>");

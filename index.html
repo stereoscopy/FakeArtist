@@ -17,13 +17,14 @@
     <div class="large-12 columns"><h1 align='center'>Impostor</h1></div>
   </div>
   <div id='screenSetPlayers' class='screen row'>
-    <div class="large-4 columns"><h3></h3></div>
     
-    <div id='playerListDiv' class="large-4 columns">
-      <ol id='playerList'>
-      </ol>
-      <div id='playerListControls'>
-        <a id="addPlayerButton" class="button expanded">Add player</a>
+    <div id='playerListDiv' class="large-4 large-offset-4 columns end">
+      <div class='row'>
+        <ol id='playerList' class='no-bullet'>
+        </ol>
+      </div>
+      <div id='playerListControls' class='row'>
+        <a id="addPlayerButton" class="button small-6">Add player</a>
       </div>
       <div id='gameControls'>
         <div class='row'>
@@ -34,12 +35,13 @@
         </div>
 
         <label>Category: <span id="categoryDisplay">no category chosen...</span></label>
-        <a id="distributeTopicButton" class="button expanded">Next</a>
+        <div class="row">
+          <a id="distributeTopicButton" class="button expanded">Next</a>
+        </div>  
 
       </div>
     </div>
 
-    <div class="large-4 columns"><h3></h3></div>
 
   </div>
 
@@ -47,7 +49,7 @@
   <div class="large-4 columns"><h3></h3></div>
   <div class="large-4 columns">
     <a id="editGameButton" class="button expanded">Edit Game...</a>
-    <ul id='playerListForShowTopic'></ul>
+    <ul id='playerListForShowTopic'class="no-bullet"></ul>
     <a id="startButton" class="button expanded">Start</a>
   </div>
 
