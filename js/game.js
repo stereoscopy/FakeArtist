@@ -11,6 +11,10 @@
 //TODO: put all game state in one object.
 
 //TODO: have dialogs be modal.  don't allow editing of other stuff while a dialog is forward.
+
+//TODO: swipe right to remove player.  Use foundation Touch.js:
+//      $('selector').spotSwipe().on('swipeleft', handleLeftSwipe);
+
 var currentTopicInfo;
 var gInfos;
 
@@ -19,6 +23,8 @@ var topicsInfoList = [
   {category: "Activity", topic: "Sailing", difficulty: 1},
   {category: "Activity", topic: "Ballet Dancing", difficulty: 2},  
   {category: "Activity", topic: "Wine Tasting", difficulty: 2},  
+  {category: "Activity", topic: "Parachuting", difficulty: 2},  
+  {category: "Animal", topic: "Ant-Eater", difficulty: 1},
   {category: "Animal", topic: "Dog", difficulty: 1},
   {category: "Animal", topic: "Cat", difficulty: 1},
   {category: "Animal", topic: "Lion", difficulty: 1},
