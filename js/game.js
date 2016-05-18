@@ -145,7 +145,7 @@ function assert(message, expr) {
 assert.count = 0;
 
 function deletePlayer(obj){
-  $(obj).parent().parent().parent().remove();
+  $(obj).parentsUntil("#playerList", "li").remove();
 }
 function numPlayers(){
     return $('#playerList li').size();
