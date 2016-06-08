@@ -144,15 +144,17 @@ function assert(message, expr) {
 
 assert.count = 0;
 
-function deletePlayer(obj){
-  $(obj).parentsUntil("#playerList", "li").remove();
-}
 function numPlayers(){
     return $('#playerList li').size();
 }
+
 function addPlayer(opts){
   var n = opts.name || ("Player" + (numPlayers() + 1));
   $("<li><div class='row'><div class='small-10 columns'><input type='text' class='playerNameInput' value='"+n+"'/></div><div class='small-2 columns'><button type='button' class='button deletePlayer alert expanded' onclick='deletePlayer(this);'>del</button></div></div></li>").appendTo('#playerList');
+}
+
+function deletePlayer(obj){
+  $(obj).parentsUntil("#playerList", "li").remove();
 }
 
 function pick(arr) {
