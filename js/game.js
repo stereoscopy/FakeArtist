@@ -66,8 +66,6 @@ var topicsInfoList = [
 $(document).ready(function(){
   $(document).foundation();
 
-  //$('#header ul').addClass('hide');
-  //$('#header').append('<div class="leftButton" onclick="toggleMenu()">Menu</div>');
   currentTopicInfo = null;
 
   $('#addPlayerButton').bind('click', addPlayer);
@@ -150,7 +148,14 @@ function numPlayers(){
 
 function addPlayer(opts){
   var n = opts.name || ("Player" + (numPlayers() + 1));
-  $("<li class='playerListItem'><div class='row'><div class='small-9 large-9 columns'><input type='text' class='playerNameInput' oninput='nameInputChanged(this);' value='"+n+"'/></div><div class='small-3 large-3 columns'><button type='button' class='button deletePlayer alert expanded' onclick='deletePlayer(this);'>del</button></div></div></li>").appendTo('#playerList');
+  
+  var cloned = $('#playerLiToClone').clone();
+  cloned.removeAttr("id");
+  cloned.removeAttr("style");
+  cloned.addClass('playerListItem');
+  cloned.appendTo('#playerList');
+  var inp = cloned.find(".playerNameInput");
+  inp.attr("value", n);
   storePlayerList();
 }
 
@@ -174,7 +179,7 @@ function restorePlayersFromStoreage(){
   }
 }
 function getCurrentPlayerNames(){
-  return $('.playerNameInput').map(function() { return this.value }).get();
+  return $('#playerList .playerNameInput').map(function() { return this.value }).get();
 }
 
 function storePlayerList(){
@@ -231,24 +236,24 @@ function buildScreen2(){
   var topic = currentTopicInfo.topic;
   var category = currentTopicInfo.category;
 
-  var playerNameInputs = $('.playerNameInput');
+  var playerNames = getCurrentPlayerNames();
+
   //remove existing elems of show-list
   $('#playerListForShowTopic li').remove();
   $('#startButton').hide();
   
-  var numPlayers = playerNameInputs.size();
   gInfos = [];
-  playerNameInputs.each(function(n, obj) {
-    var playerName = $(obj).val();
+
+  playerNames.forEach(function(playerName) {
     gInfos.push({category: category, topic: topic, isImpostor: false, playerName: playerName});
   });
   
   var impostorInfo = _.sample(gInfos);
   impostorInfo.topic = "???";
   impostorInfo.isImpostor = true;
-  
-  playerNameInputs.each(function(n, obj) {
-    var info = gInfos[n];    
+
+  playerNames.forEach(function(n, i) {
+    var info = gInfos[i];    
     var labelText = info.playerName;
     var inp = $("<a class='button large hollow expanded' data-open='showRoleModal'>"+labelText+"</a>");
     var li = $("<li>");
