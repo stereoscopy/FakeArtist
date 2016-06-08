@@ -151,10 +151,39 @@ function numPlayers(){
 function addPlayer(opts){
   var n = opts.name || ("Player" + (numPlayers() + 1));
   $("<li><div class='row'><div class='small-10 columns'><input type='text' class='playerNameInput' value='"+n+"'/></div><div class='small-2 columns'><button type='button' class='button deletePlayer alert expanded' onclick='deletePlayer(this);'>del</button></div></div></li>").appendTo('#playerList');
+  storePlayerList();
 }
 
 function deletePlayer(obj){
   $(obj).parentsUntil("#playerList", "li").remove();
+  storePlayerList();  
+}
+
+function restorePlayersFromStoreage(){
+  console.log('restorePlayersFromStoreage');
+  var playerNamesStr = localStorage.getItem("playerNames");
+  if (playerNamesStr){
+    //TODO: playerNames may not have been in storeage
+    var playerNames = JSON.parse(playerNamesStr);
+    playerNames.forEach(function(n) {
+      console.log('player: ' + n);
+    });
+    return playerNames;
+  } else {
+
+  }
+}
+function getCurrentPlayerNames(){
+  return $('.playerNameInput').map(function() { return this.value }).get();
+}
+
+function storePlayerList(){
+  if (typeof(Storage) !== "undefined") {
+    console.log("Storing player list: "+getCurrentPlayerNames());
+    localStorage.setItem("playerNames", JSON.stringify(getCurrentPlayerNames()));
+  } else {
+    //Storage unsupported - do nothing
+  }
 }
 
 function pick(arr) {
@@ -167,10 +196,6 @@ function randInt(n){
   return Math.floor(Math.random() * n);
 }
 
-function two(thing){
-  console.log("two: "+ thing);
-}
-
 function setRandomTopic(){
   //TODO: don't pick a topic we've played already in this session.
   var randomPick = pick(topicsInfoList);
@@ -178,23 +203,26 @@ function setRandomTopic(){
 }
 
 function changeScreenTo(screenId){
-
   $('.screen').hide();
   $(screenId).show();
 }
 
 function buildScreen1(){
   changeScreenTo('#screenSetPlayers');
-  if(numPlayers() < 1){
-    ["Alice", "Bob", "Charlie", "Dave"].forEach(function(n) {
-      addPlayer({ name: n } );    
-    });
-  }
+  //Add players from storeage
+  var playerNames = restorePlayersFromStoreage();
+  //if(numPlayers() < 1){
+  //  ["Alice", "Bob", "Charlie", "Dave"].forEach(function(n) {
+  playerNames.forEach(function(n) {
+    addPlayer({ name: n } );    
+  });
+  
   $('#distributeTopicButton').hide();
   gInfos = [];
   currentTopicInfo = null;
   updateCategoryDisplay();
 }
+
 function buildScreen2(){
   if (!currentTopicInfo) {
     console.log("Can't proceed - no topic set.");
@@ -263,7 +291,6 @@ function showForPlayer(obj, info){
 
   $(obj).parent().remove();
   var remainingPlayerCount = $('#playerListForShowTopic li').size();
-  console.log(remainingPlayerCount);
   if (remainingPlayerCount < 1){
     $('#startButton').show();
   }
