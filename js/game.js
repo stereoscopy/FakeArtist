@@ -170,7 +170,7 @@ function restorePlayersFromStoreage(){
     });
     return playerNames;
   } else {
-
+    return [];
   }
 }
 function getCurrentPlayerNames(){
