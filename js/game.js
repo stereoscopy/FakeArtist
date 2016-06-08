@@ -250,7 +250,7 @@ function buildScreen2(){
   playerNameInputs.each(function(n, obj) {
     var info = gInfos[n];    
     var labelText = info.playerName;
-    var inp = $("<a class='button hollow expanded' data-open='showRoleModal'>"+labelText+"</a>");
+    var inp = $("<a class='button large hollow expanded' data-open='showRoleModal'>"+labelText+"</a>");
     var li = $("<li>");
     inp.appendTo(li);
     inp.bind('click', function() {
