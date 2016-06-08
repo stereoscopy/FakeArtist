@@ -150,7 +150,11 @@ function numPlayers(){
 
 function addPlayer(opts){
   var n = opts.name || ("Player" + (numPlayers() + 1));
-  $("<li><div class='row'><div class='small-10 columns'><input type='text' class='playerNameInput' value='"+n+"'/></div><div class='small-2 columns'><button type='button' class='button deletePlayer alert expanded' onclick='deletePlayer(this);'>del</button></div></div></li>").appendTo('#playerList');
+  $("<li class='playerListItem'><div class='row'><div class='small-9 large-9 columns'><input type='text' class='playerNameInput' oninput='nameInputChanged(this);' value='"+n+"'/></div><div class='small-3 large-3 columns'><button type='button' class='button deletePlayer alert expanded' onclick='deletePlayer(this);'>del</button></div></div></li>").appendTo('#playerList');
+  storePlayerList();
+}
+
+function nameInputChanged(obj){  
   storePlayerList();
 }
 
@@ -204,6 +208,7 @@ function changeScreenTo(screenId){
 
 function buildScreen1(){
   changeScreenTo('#screenSetPlayers');
+  $('.playerListItem').remove();
   var playerNames = restorePlayersFromStoreage();
   playerNames.forEach(function(n) {
     addPlayer({ name: n } );    
