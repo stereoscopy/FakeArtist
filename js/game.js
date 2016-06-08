@@ -118,8 +118,6 @@ function setTopicInfo(info){
     }
 }
 function updateCategoryDisplay(){
-  console.log('updating category display');
-
   $('#categoryDisplay').html(currentTopicInfo ? 
     currentTopicInfo.category : "no category set");
 }
@@ -160,7 +158,6 @@ function deletePlayer(obj){
 }
 
 function restorePlayersFromStoreage(){
-  console.log('restorePlayersFromStoreage');
   var playerNamesStr = localStorage.getItem("playerNames");
   if (playerNamesStr){
     //TODO: playerNames may not have been in storeage
@@ -176,7 +173,6 @@ function getCurrentPlayerNames(){
 
 function storePlayerList(){
   if (typeof(Storage) !== "undefined") {
-    //console.log("Storing player list: "+getCurrentPlayerNames());
     localStorage.setItem("playerNames", JSON.stringify(getCurrentPlayerNames()));
   } else {
     //Storage unsupported - do nothing
