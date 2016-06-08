@@ -1,5 +1,7 @@
 "use strict";
 
+//TODO: Save player names to local storeage after any change to them in input text fields
+
 //TODO: Display that a game-master has seen the topic for this round, 
 //      if it's been peeked or manually set.
 
