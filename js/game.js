@@ -165,9 +165,6 @@ function restorePlayersFromStoreage(){
   if (playerNamesStr){
     //TODO: playerNames may not have been in storeage
     var playerNames = JSON.parse(playerNamesStr);
-    playerNames.forEach(function(n) {
-      console.log('player: ' + n);
-    });
     return playerNames;
   } else {
     return [];
@@ -179,7 +176,7 @@ function getCurrentPlayerNames(){
 
 function storePlayerList(){
   if (typeof(Storage) !== "undefined") {
-    console.log("Storing player list: "+getCurrentPlayerNames());
+    //console.log("Storing player list: "+getCurrentPlayerNames());
     localStorage.setItem("playerNames", JSON.stringify(getCurrentPlayerNames()));
   } else {
     //Storage unsupported - do nothing
@@ -209,10 +206,7 @@ function changeScreenTo(screenId){
 
 function buildScreen1(){
   changeScreenTo('#screenSetPlayers');
-  //Add players from storeage
   var playerNames = restorePlayersFromStoreage();
-  //if(numPlayers() < 1){
-  //  ["Alice", "Bob", "Charlie", "Dave"].forEach(function(n) {
   playerNames.forEach(function(n) {
     addPlayer({ name: n } );    
   });
