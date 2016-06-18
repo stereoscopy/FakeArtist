@@ -431,7 +431,7 @@
                 li = $("<li>");
             inp.appendTo(li);
             inp.bind('click', function () {
-                showForPlayer(inp[0], info);
+                showForPlayer($(this), info);
             });
             li.appendTo('#playerListForShowTopic');
         });
@@ -464,7 +464,7 @@
         $('#showRoleModal .nameDisplay').html(info.playerName);
         $('#showRoleModal .categoryDisplay').html(info.category);
 
-        $(obj).parent().remove();
+        obj.closest("li").remove();
         var remainingPlayerCount = $('#playerListForShowTopic li').size();
         if (remainingPlayerCount < 1) {
             $('#startButton').show();
