@@ -324,7 +324,7 @@
     }
 
     function deletePlayer(obj) {
-        $(obj).parentsUntil("#playerList", "li").remove();
+        $(obj).closest(".playerListItem").remove();
         storePlayerList();
     }
 
