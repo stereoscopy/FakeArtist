@@ -23,7 +23,9 @@
 
     var currentTopicInfo,
         gInfos,
-        topicsInfoList = [
+        topicsInfoList = TOPICS.data,
+
+        oldTopicsInfoList = [
             {
                 category: "Activity",
                 topic: "Fishing",
